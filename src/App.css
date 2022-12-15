@@ -1,38 +1,87 @@
+* {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .App {
-  text-align: center;
+  height: 100vh;
+  width: 100vw;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+header {
+  background: lightblue;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+header nav ul {
+  display: flex;
+  justify-content: right;
+  align-items: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+a {
+  padding: 10px 10px;
+}
+
+.page {
+  background: white;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  /* overflow: auto; */
 }
 
-.App-link {
-  color: #61dafb;
+.register, .login {
+  position: relative;
+  top: 150px;
+  background: lightgray;
+  height: 500px;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 25px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.register p, .login p {
+  color: red;
+}
+
+.createPost {
+  background: pink;
+  padding: 1%;
+  width: 50%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.createPost section {
+  width: 50%;
+  padding: 1%;
+}
+
+.posts {
+  width: 100%;
+  height: 500px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.post {
+  width: 50%;
+  padding: 1%;
+  border: 2px solid white;
+  background: lightgreen;
+}
+
+.post h3 {
+  text-decoration: underline;
+}
+
+.post h3, .post h4, .post p {
+  padding: 5px 0px;
 }
