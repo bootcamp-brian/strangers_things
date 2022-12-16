@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { loginUser } from '../utils/API';
 import { useNavigate } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [token, setToken] = useOutletContext();
     const navigate = useNavigate();
 
     const submitLogin = async (event) => {
@@ -13,6 +15,7 @@ const Login = () => {
         const data = await loginUser({ username, password });
             if (data.success) {
                 localStorage.setItem('token', data.data.token);
+                setToken(data.data.token);
                 setUsername('');
                 setPassword('');
                 setErrorMessage('');

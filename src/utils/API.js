@@ -33,3 +33,18 @@ export const loginUser = async ({ username, password }) => {
     const data = await response.json();
     return data;
 }
+
+export const getMessages = async (token) => {
+  try {
+      const response = await fetch(`${BASE_URL}/users/me`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+        });
+        const data = await response.json();
+        return data;
+  } catch {
+      console.error('Oops, something went wrong')
+  }
+}

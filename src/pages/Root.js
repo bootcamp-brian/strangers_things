@@ -1,24 +1,39 @@
 import { Outlet, Link } from "react-router-dom";
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 export default function Root() {
     const [token, setToken] = useState(localStorage.getItem('token'));
-    console.log(token)
+    const navigate = useNavigate();
+
+    function logout() {
+        localStorage.removeItem('token');
+        setToken('');
+        navigate("/logout");
+    }
 
     return (
         <>
             <header>
                 <nav>
                     <ul>
-                        <Link to="posts">Posts</Link>
-                        <Link to="profile">Profile</Link>
-                        <Link to="register">Register</Link>
-                        <Link to="login">Login</Link>
-                        <Link to="logout">Logout</Link>
+                        {
+                            token && <>
+                                <Link to="posts">Posts</Link>
+                                <Link to="profile">Profile</Link>
+                                <button onClick={logout}>Logout</button>
+                            </>
+                        }
+                        {
+                            !token && <>
+                                <Link to="register">Register</Link>
+                                <Link to="login">Login</Link>
+                            </>
+                        }
                     </ul>
                 </nav>
             </header>
-            <Outlet />
+            <Outlet context={[token, setToken]}/>
         </> 
     );
 }

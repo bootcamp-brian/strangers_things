@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { registerUser } from '../utils/API';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 
 const Register = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirm, setPasswordConfirm] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [token, setToken] = useOutletContext();
+    const navigate = useNavigate();
 
     const submitRegistration = async (event) => {
         event.preventDefault();
@@ -13,10 +16,12 @@ const Register = () => {
             const data = await registerUser({ username, password });
             if (data.success) {
                 localStorage.setItem('token', data.data.token);
+                setToken(data.data.token);
                 setUsername('');
                 setPassword('');
                 setPasswordConfirm('');
                 setErrorMessage('');
+                navigate("/posts");
             } else {
                 setErrorMessage(data.error.message);
             }
