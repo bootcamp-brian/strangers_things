@@ -15,6 +15,7 @@ const Posts = () => {
     const [postMessages, setPostMessages] = useState({});
     const [searchTerm, setSearchTerm] = useState('');
     const { username } = token ? jwt_decode(token) : '';
+    const postMessagesHolder = {};
 
     function postMatches(post, text) {
         if (post.title.includes(text) || post.description.includes(text) || post.price.includes(text)) {
@@ -186,8 +187,8 @@ const Posts = () => {
         }
         <section className="posts">
             {
-                token ? postsToDisplay.map(post =>
-                    <div key={post._id} className="post">
+                token ? postsToDisplay.map(post => {
+                    return <div key={post._id} className="post">
                         <h3>{post.title}</h3>
                         <h4>Description:</h4>
                         <p>{post.description}</p>
@@ -220,14 +221,14 @@ const Posts = () => {
                                     required
                                     value={postMessages[post._id]}
                                     onChange={event => {
-                                        postMessages[post._id] = event.target.value;
-                                        // setPostMessages(postMessages);
+                                        postMessagesHolder[post._id] = event.target.value;
+                                        setPostMessages(postMessagesHolder);
                                     }}></textarea>
                                 <br/>
                                 <button type="submit">Send</button>
                             </form>
                         }
-                    </div>
+                    </div>}
                 ) : <h2>You are not logged in</h2>
             }
         </section>
