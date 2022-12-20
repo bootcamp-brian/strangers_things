@@ -26,6 +26,7 @@ const Login = () => {
     }
 
     return <div className="page">
+        <h2>Login</h2>
         <form className="login" onSubmit={submitLogin}>
             <section>
                 <label htmlFor="username">Username:</label>

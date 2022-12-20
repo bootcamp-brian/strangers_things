@@ -12,40 +12,44 @@ const Profile = () => {
         const loadMessages = async () => {
             const data = await getMessages(token);
             setMessages(data.data.messages);
-            console.log(data.data.messages)
-            console.log(messages)
         }
         loadMessages();
     }, []);
 
     return <>
-        <h1>Welcome {username}</h1>
-        <h1>Received Messages</h1>
-        {
-            messages.map(message => {
-                if (message.fromUser.username !== username) {
-                    return <div key={message._id} className="profileMessage">
-                        <h3>Re: {message.post.title}</h3>
-                        <h4>From:</h4>
-                        <p>{message.fromUser.username}</p>
-                        <h4>Message:</h4>
-                        <p>{message.content}</p>
-                    </div>
-                }
-            })
-        }
-        <h1>Sent Messages</h1>
-        {
-            messages.map(message => {
-                if (message.fromUser.username === username) {
-                    return <div key={message._id} className="profileMessage">
-                        <h3>Re: {message.post.title}</h3>
-                        <h4>Message:</h4>
-                        <p>{message.content}</p>
-                    </div>
-                }
-            })
-        }
+        <h1>{username}'s Profile:</h1>
+        <h2>Received Messages</h2>
+        <section className="profileMessages">
+            {
+                messages.map(message => {
+                    if (message.fromUser.username !== username) {
+                        return <div key={message._id} className="profileMessage">
+                            <h3>Re: {message.post.title}</h3>
+                            <h4>From:</h4>
+                            <p>{message.fromUser.username}</p>
+                            <h4>Message:</h4>
+                            <p>{message.content}</p>
+                        </div>
+                    }
+                })
+            }
+        </section>
+        
+        <h2>Sent Messages</h2>
+        <section className="profileMessages">
+            {
+                messages.map(message => {
+                    if (message.fromUser.username === username) {
+                        return <div key={message._id} className="profileMessage">
+                            <h3>Re: {message.post.title}</h3>
+                            <h4>Message:</h4>
+                            <p>{message.content}</p>
+                        </div>
+                    }
+                })
+            }
+        </section>
+        
     </>
 }
 

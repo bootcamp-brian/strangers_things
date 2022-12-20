@@ -48,3 +48,68 @@ export const getMessages = async (token) => {
       console.error('Oops, something went wrong')
   }
 }
+
+export const getPosts = async () => {
+  try {
+      const response = await fetch(`${BASE_URL}/posts`);
+      const data = await response.json();
+      return data.data.posts;
+  } catch {
+      console.error('Oops, something went wrong');
+  }
+}
+
+export const createPost = async ({ token, postTitle, postDescription, postPrice, postDelivery }) => {
+  try {
+      const response = await fetch(`${BASE_URL}/posts`, {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            post: {
+              title: `${postTitle}`,
+              description: `${postDescription}`,
+              price: `${postPrice}`,
+              willDeliver: postDelivery
+            }
+          })
+      });
+  } catch {
+      console.error('Oops, something went wrong')
+  }
+}
+
+export const sendMessage = async ({ token, postMessages, postid }) => {
+  try {
+      const response = await fetch(`${BASE_URL}/posts/${postid}/messages`, {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            message: {
+              content: `${postMessages[postid]}`
+            }
+          })
+      })
+  } catch {
+      console.error('Oops, something went wrong')
+  }
+}
+
+export const deletePost = async ({ token, postid }) => {
+  try {
+      const response = await fetch(`${BASE_URL}/posts/${postid}`, {
+          method: "DELETE",
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        });
+  } catch {
+      console.error('Oops, something went wrong')
+  }
+}

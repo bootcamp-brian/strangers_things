@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
+import { getPosts, createPost, deletePost, sendMessage } from '../utils/API';
 
 const cohort = '2209-ftb-pt-web-pt';
 
@@ -12,95 +13,115 @@ const Posts = () => {
     const [postPrice, setPostPrice] = useState('');
     const [postDelivery, setPostDelivery] = useState(false);
     const [postMessages, setPostMessages] = useState({});
-    const { username } = jwt_decode(token);
+    const [searchTerm, setSearchTerm] = useState('');
+    const { username } = token ? jwt_decode(token) : '';
 
-    const getPosts = async () => {
-        try {
-            const response = await fetch(`https://strangers-things.herokuapp.com/api/${cohort}/posts`);
-            const data = await response.json();
-            setPosts(data.data.posts);
-        } catch {
-            console.error('Oops, something went wrong');
+    function postMatches(post, text) {
+        if (post.title.includes(text) || post.description.includes(text) || post.price.includes(text)) {
+            return true;
+        } else {
+            return false;
         }
     }
+      
+    const filteredPosts = posts.filter(post => postMatches(post, searchTerm));
+    const postsToDisplay = searchTerm.length ? filteredPosts : posts;
 
-    const createPost = async (event) => {
-        event.preventDefault()
-        try {
-            const response = await fetch(`https://strangers-things.herokuapp.com/api/${cohort}/posts`, {
-                method: "POST",
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify({
-                  post: {
-                    title: `${postTitle}`,
-                    description: `${postDescription}`,
-                    price: `${postPrice}`,
-                    willDeliver: postDelivery
-                  }
-                })
-            });
-            setPostTitle('');
-            setPostDescription('');
-            setPostPrice('');
-            setPostDelivery(false);
-            getPosts();
-        } catch {
-            console.error('Oops, something went wrong')
-        }
-    }
+    // const getPosts = async () => {
+    //     try {
+    //         const response = await fetch(`https://strangers-things.herokuapp.com/api/${cohort}/posts`);
+    //         const data = await response.json();
+    //         return data.data.posts;
+    //     } catch {
+    //         console.error('Oops, something went wrong');
+    //     }
+    // }
 
-    const sendMessage = async (event, postid) => {
-        event.preventDefault();
-        try {
-            const response = await fetch(`https://strangers-things.herokuapp.com/api/${cohort}/posts/${postid}/messages`, {
-                method: "POST",
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify({
-                  message: {
-                    content: `${postMessages[postid]}`
-                  }
-                })
-            })
-            const data = await response.json();
-            console.log(data)
-            postMessages[postid] = '';
-            getPosts();
-        } catch {
-            console.error('Oops, somethign went wrong')
-        }
-    }
+    // const createPost = async ({token, postTitle, postDescription, postPrice, postDelivery}) => {
+    //     try {
+    //         const response = await fetch(`https://strangers-things.herokuapp.com/api/${cohort}/posts`, {
+    //             method: "POST",
+    //             headers: {
+    //               'Content-Type': 'application/json',
+    //               'Authorization': `Bearer ${token}`
+    //             },
+    //             body: JSON.stringify({
+    //               post: {
+    //                 title: `${postTitle}`,
+    //                 description: `${postDescription}`,
+    //                 price: `${postPrice}`,
+    //                 willDeliver: postDelivery
+    //               }
+    //             })
+    //         });
+    //         // setPostTitle('');
+    //         // setPostDescription('');
+    //         // setPostPrice('');
+    //         // setPostDelivery(false);
+    //         // getPosts();
+    //     } catch {
+    //         console.error('Oops, something went wrong')
+    //     }
+    // }
 
-    const deletePost = async (postid) => {
-        try {
-            const response = await fetch(`https://strangers-things.herokuapp.com/api/${cohort}/posts/${postid}`, {
-                method: "DELETE",
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${token}`
-                }
-              });
-              getPosts();
-        } catch {
-            console.error('Oops, something went wrong')
-        }
-    }
+    // const sendMessage = async ({ token, postMessages, postid }) => {
+    //     try {
+    //         const response = await fetch(`https://strangers-things.herokuapp.com/api/${cohort}/posts/${postid}/messages`, {
+    //             method: "POST",
+    //             headers: {
+    //               'Content-Type': 'application/json',
+    //               'Authorization': `Bearer ${token}`
+    //             },
+    //             body: JSON.stringify({
+    //               message: {
+    //                 content: `${postMessages[postid]}`
+    //               }
+    //             })
+    //         })
+    //         // postMessages[postid] = '';
+    //         // getPosts();
+    //     } catch {
+    //         console.error('Oops, something went wrong')
+    //     }
+    // }
+
+    // const deletePost = async ({ token, postid }) => {
+    //     try {
+    //         const response = await fetch(`https://strangers-things.herokuapp.com/api/${cohort}/posts/${postid}`, {
+    //             method: "DELETE",
+    //             headers: {
+    //               'Content-Type': 'application/json',
+    //               'Authorization': `Bearer ${token}`
+    //             }
+    //           });
+    //         //   getPosts();
+    //     } catch {
+    //         console.error('Oops, something went wrong')
+    //     }
+    // }
     
     useEffect(() => {
-            getPosts();
-    }, [])
+        const renderPosts = async () => {
+            const newPosts = await getPosts();
+            setPosts(newPosts);
+        }
+        renderPosts();
+    }, [posts])
 
     return <div className="page">
         {
             token && <>
             <h1>Welcome {username}</h1>
-            <h1>Create New Post</h1>
-            <form className="createPost" onSubmit={createPost}>
+            <h2>Create New Post</h2>
+            <form className="createPost" onSubmit={event => {
+                event.preventDefault();
+                createPost({ token, postTitle, postDescription, postPrice, postDelivery });
+                setPostTitle('');
+                setPostDescription('');
+                setPostPrice('');
+                setPostDelivery(false);
+                setPosts(posts);
+            }}>
                 <section>
                     <label htmlFor="postTitle">Title:</label>
                     <br/>
@@ -149,12 +170,23 @@ const Posts = () => {
                 </section>
                 <button type="submit">Submit Post</button>
             </form>
-            <h1>Available Posts</h1>
+            <form className="searchPosts">
+                <label id="searchLabel" htmlFor="search">Search for Posts:</label>
+                <input
+                        id="search"
+                        type="text"
+                        placeholder="enter your search..."
+                        minLength="1"
+                        required
+                        value={searchTerm}
+                        onChange={event => setSearchTerm(event.target.value)}/>
+            </form>
+            <h2>Available Posts</h2>
             </>
         }
         <section className="posts">
             {
-                token ? posts.map(post =>
+                token ? postsToDisplay.map(post =>
                     <div key={post._id} className="post">
                         <h3>{post.title}</h3>
                         <h4>Description:</h4>
@@ -164,12 +196,18 @@ const Posts = () => {
                         <h4>Delivery available?</h4>
                         <p>{post.willDeliver ? 'Yes' : 'No'}</p>
                         {
-                            post.author.username === username && <button onClick={() => deletePost(post._id)}>Delete</button>
+                            post.author.username === username && <button onClick={() => {
+                                deletePost({token, postid: post._id});
+                                setPosts(posts);
+                            }}>Delete</button>
                         }
                         {
                             post.author.username !== username &&
                             <form className="sendMessage" onSubmit={event => {
-                                sendMessage(event, post._id);
+                                event.preventDefault();
+                                sendMessage({ token, postMessages, postid: post._id });
+                                postMessages[post._id] = '';
+                                setPosts(posts);
                                 }}>
                                 <h4>Send A Message:</h4>
                                 <br/>
@@ -183,14 +221,14 @@ const Posts = () => {
                                     value={postMessages[post._id]}
                                     onChange={event => {
                                         postMessages[post._id] = event.target.value;
-                                        setPostMessages(postMessages);
+                                        // setPostMessages(postMessages);
                                     }}></textarea>
                                 <br/>
                                 <button type="submit">Send</button>
                             </form>
                         }
                     </div>
-                ) : <h1>You are not logged in</h1>
+                ) : <h2>You are not logged in</h2>
             }
         </section>
     </div>

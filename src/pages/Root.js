@@ -9,7 +9,7 @@ export default function Root() {
     function logout() {
         localStorage.removeItem('token');
         setToken('');
-        navigate("/logout");
+        // navigate("/logout");
     }
 
     return (
@@ -21,17 +21,19 @@ export default function Root() {
                             token && <>
                                 <Link to="posts">Posts</Link>
                                 <Link to="profile">Profile</Link>
-                                <button onClick={logout}>Logout</button>
+                                <Link className ="lastNav" onClick={logout} to="logout">Logout</Link>
+                                {/* <button className="logoutButton" onClick={logout}>Logout</button> */}
                             </>
                         }
                         {
                             !token && <>
                                 <Link to="register">Register</Link>
-                                <Link to="login">Login</Link>
+                                <Link className="lastNav" to="login">Login</Link>
                             </>
                         }
                     </ul>
                 </nav>
+                <h1>Stranger's Things</h1>
             </header>
             <Outlet context={[token, setToken]}/>
         </> 

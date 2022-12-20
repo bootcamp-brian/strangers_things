@@ -31,6 +31,7 @@ const Register = () => {
     }
 
     return <div className="page">
+        <h2>Register</h2>
         <form className="register" onSubmit={submitRegistration}>
             <section>
                 <label htmlFor="username">Username:</label>
