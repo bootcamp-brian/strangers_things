@@ -113,3 +113,26 @@ export const deletePost = async ({ token, postid }) => {
       console.error('Oops, something went wrong')
   }
 }
+
+export const savePost = async (postTitleEdit, postDescriptionEdit, postPriceEdit, postLocationEdit, postWillDeliverEdit, token, postid) => {
+  try {
+    const response = await fetch(`${BASE_URL}/posts/${postid}`, {
+      method: "PATCH",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        post: {
+          title: `${postTitleEdit}`,
+          description: `${postDescriptionEdit}`,
+          price: `${postPriceEdit}`,
+          location: `${postLocationEdit}`,
+          willDeliver: postWillDeliverEdit
+        }
+      })
+    });
+} catch {
+    console.error('Oops, something went wrong')
+}
+}
