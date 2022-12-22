@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { deletePost, savePost, sendMessage } from "../utils/API";
+import { Link } from "react-router-dom";
 
 const PostContent = ({ post, posts, setPosts, token, username }) => {
     const [postTitleEdit, setPostTitleEdit] = useState(post.title);
@@ -84,6 +85,7 @@ const PostContent = ({ post, posts, setPosts, token, username }) => {
     } else {
         return <>
             <h3>{post.title}</h3>
+            <h6>Posted by <Link to={`publicprofiles/${post.author.username}`}>{post.author.username}</Link></h6>
             <h4>Description:</h4>
             <p>{post.description}</p>
             <h4>Price:</h4>
