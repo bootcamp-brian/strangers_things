@@ -16,7 +16,7 @@ const Profile = () => {
         loadMessages();
     }, []);
 
-    return <>
+    return <div className="page">
         <h1>{username}'s Profile:</h1>
         <h2>Received Messages</h2>
         <section className="profileMessages">
@@ -50,7 +50,7 @@ const Profile = () => {
             }
         </section>
         
-    </>
+    </div>
 }
 
 export default Profile

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
 import { getPosts } from '../utils/API';
 import PostContent from "../components/PostContent";
+import profilepic from "../images/profilepic.jpeg"
 
 const PublicProfile = () => {
     const usernameParam = useParams();
@@ -30,6 +31,7 @@ const PublicProfile = () => {
 
     return <div className="page">
         <h1>{usernameParam.username}'s Public Profile</h1>
+        <img id="profilepic" src={profilepic} alt="profile pic"/>
         <h2>{usernameParam.username}'s Posts</h2>
         <section className="posts">
             {

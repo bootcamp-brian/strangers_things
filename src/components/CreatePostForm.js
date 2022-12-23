@@ -86,7 +86,6 @@ const CreatePostForm = ({ posts, setPosts, token, username }) => {
             </section>
             <button type="submit">Submit Post</button>
         </form>
-        <h2>Available Posts</h2>
         </>
     )
 }

@@ -36,6 +36,9 @@ const Posts = () => {
 
     return <div className="page">
         <CreatePostForm posts={posts} setPosts={setPosts} token={token} username={username} />
+        {
+            token && <h2>Available Posts</h2>
+        }
         <SearchPosts token={token} searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         <section className="posts">
             {

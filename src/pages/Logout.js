@@ -1,6 +1,8 @@
 const Logout = () => {
 
-    return <h1>You have logged out</h1>
+    return <div className="page">
+        <h2>You have logged out</h2>
+    </div>
 }
 
 export default Logout
