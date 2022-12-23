@@ -29,6 +29,10 @@ header nav ul a {
   padding: 10px 10px;
 }
 
+a:visited {
+  color: blue;
+}
+
 .lastNav {
   margin-right: 10px;
 }
