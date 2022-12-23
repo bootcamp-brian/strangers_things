@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
 import { getPosts } from '../utils/API';
 import PostContent from "../components/PostContent";
-import profilepic from "../images/profilepic.jpeg"
+import profilepic from "../images/profilepic.jpeg";
 
 const PublicProfile = () => {
     const usernameParam = useParams();
@@ -45,4 +45,4 @@ const PublicProfile = () => {
     </div>
 }
 
-export default PublicProfile
+export default PublicProfile;

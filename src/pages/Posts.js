@@ -6,14 +6,11 @@ import PostContent from '../components/PostContent';
 import CreatePostForm from '../components/CreatePostForm';
 import SearchPosts from '../components/SearchPosts';
 
-const cohort = '2209-ftb-pt-web-pt';
-
 const Posts = () => {
     const [posts, setPosts] = useState([]);
     const [token] = useOutletContext();
     const [searchTerm, setSearchTerm] = useState('');
     const { username } = token ? jwt_decode(token) : '';
-
 
     function postMatches(post, text) {
         if (post.title.includes(text) || post.description.includes(text) || post.price.includes(text)) {
@@ -52,4 +49,4 @@ const Posts = () => {
     </div>
 }
 
-export default Posts
+export default Posts;

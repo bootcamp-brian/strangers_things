@@ -43,7 +43,8 @@ const Register = () => {
                     minLength="5"
                     required
                     value={username}
-                    onChange={event => setUsername(event.target.value)}/>
+                    onChange={event => setUsername(event.target.value)}
+                />
             </section>
             <section>
                 <label htmlFor="password">Password:</label>
@@ -55,7 +56,8 @@ const Register = () => {
                     minLength="8"
                     required
                     value={password}
-                    onChange={event => setPassword(event.target.value)}/>
+                    onChange={event => setPassword(event.target.value)}
+                />
             </section>
             <section>
                 <label htmlFor="passwordConfirm">Confirm Password:</label>
@@ -67,7 +69,8 @@ const Register = () => {
                     minLength="8"
                     required
                     value={passwordConfirm}
-                    onChange={event => setPasswordConfirm(event.target.value)}/>
+                    onChange={event => setPasswordConfirm(event.target.value)}
+                />
             </section>
             <button type="submit">Register</button>
             <p>{errorMessage}</p>
@@ -75,4 +78,4 @@ const Register = () => {
     </div>
 }
 
-export default Register
+export default Register;

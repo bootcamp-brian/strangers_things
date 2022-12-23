@@ -37,7 +37,8 @@ const Login = () => {
                     placeholder="enter username..."
                     required
                     value={username}
-                    onChange={event => setUsername(event.target.value)}/>
+                    onChange={event => setUsername(event.target.value)}
+                />
             </section>
             <section>
                 <label htmlFor="password">Password:</label>
@@ -48,7 +49,8 @@ const Login = () => {
                     placeholder="enter password..."
                     required
                     value={password}
-                    onChange={event => setPassword(event.target.value)}/>
+                    onChange={event => setPassword(event.target.value)}
+                />
             </section>
             <button type="submit">Login</button>
             <p>{errorMessage}</p>
@@ -57,4 +59,4 @@ const Login = () => {
 }
 
 
-export default Login
+export default Login;

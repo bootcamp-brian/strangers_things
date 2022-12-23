@@ -14,10 +14,11 @@ const CreatePostForm = ({ posts, setPosts, token, username }) => {
         <h2>Create New Post</h2>
         <form className="createPost" onSubmit={event => {
             event.preventDefault();
-            createPost({ token, postTitle, postDescription, postPrice, postDelivery });
+            createPost({ token, postTitle, postDescription, postPrice, postDelivery, postLocation});
             setPostTitle('');
             setPostDescription('');
             setPostPrice('');
+            setPostLocation('');
             setPostDelivery(false);
             setPosts(posts);
         }}>

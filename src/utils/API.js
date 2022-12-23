@@ -59,7 +59,7 @@ export const getPosts = async () => {
   }
 }
 
-export const createPost = async ({ token, postTitle, postDescription, postPrice, postDelivery }) => {
+export const createPost = async ({ token, postTitle, postDescription, postPrice, postDelivery, postLocation }) => {
   try {
       const response = await fetch(`${BASE_URL}/posts`, {
           method: "POST",
@@ -72,7 +72,8 @@ export const createPost = async ({ token, postTitle, postDescription, postPrice,
               title: `${postTitle}`,
               description: `${postDescription}`,
               price: `${postPrice}`,
-              willDeliver: postDelivery
+              willDeliver: postDelivery,
+              location: `${postLocation}`
             }
           })
       });

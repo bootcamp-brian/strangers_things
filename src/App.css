@@ -10,6 +10,8 @@
   width: 100vw;
 }
 
+/* Header */
+
 header h1 {
   text-align: center;
   font-size: 3em;
@@ -31,8 +33,22 @@ header nav ul a {
   margin-right: 10px;
 }
 
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+
+.logo img{
+  width: 10%;
+  height: 10%
+}
+
+/* Page element to contain individul page contents */
+
 .page {
-  padding-top: 100px;
+  padding-top: 50px;
   background: white;
   width: 100%;
   display: flex;
@@ -49,6 +65,8 @@ header nav ul a {
   padding: 1%;
 }
 
+/* Login & Registration pages*/
+
 .register, .login {
   background: lightgray;
   height: 500px;
@@ -63,6 +81,8 @@ header nav ul a {
 .register p, .login p {
   color: red;
 }
+
+/* Posts & Profile & Public Profile pages */
 
 .createPost {
   background: pink;
@@ -80,6 +100,10 @@ header nav ul a {
 .createPost button {
   height: 50%;
   align-self: center;
+}
+
+#searchLabel {
+  padding-right: 5px;
 }
 
 .posts {
@@ -118,9 +142,13 @@ header nav ul a {
   padding: 1%;
 }
 
-#searchLabel {
-  padding-right: 5px;
+#profilepic {
+  padding: 1%;
+  width: 250px;
+  height: 250px;
 }
+
+/* Buttons */
 
 button {
   padding: 1%;
@@ -134,10 +162,4 @@ button:hover {
 
 button:active {
   background: darkgray;
-}
-
-#profilepic {
-  padding: 1%;
-  width: 250px;
-  height: 250px;
 }

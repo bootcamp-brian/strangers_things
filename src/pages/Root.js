@@ -1,17 +1,14 @@
 import { Outlet, Link } from "react-router-dom";
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-// import strangerlogoleft from '../images/strangerlogoleft.jpeg';
-// import strangerlogoright from '../images/strangerlogoright.jpeg';
+import { useState } from 'react';
+import logoleft from '../images/logoleft.png';
+import logoright from '..//images/logoright.png';
 
 export default function Root() {
     const [token, setToken] = useState(localStorage.getItem('token'));
-    const navigate = useNavigate();
 
     function logout() {
         localStorage.removeItem('token');
         setToken('');
-        // navigate("/logout");
     }
 
     return (
@@ -24,7 +21,6 @@ export default function Root() {
                                 <Link to="posts">Posts</Link>
                                 <Link to="profile">Profile</Link>
                                 <Link className ="lastNav" onClick={logout} to="logout">Logout</Link>
-                                {/* <button className="logoutButton" onClick={logout}>Logout</button> */}
                             </>
                         }
                         {
@@ -35,11 +31,11 @@ export default function Root() {
                         }
                     </ul>
                 </nav>
-                <h1>
-                    {/* <img src={strangerlogoleft} /> */}
-                    Stranger's Things
-                    {/* <img src={strangerlogoright} /> */}
-                </h1>
+                <section className="logo">
+                    <img src={logoleft} />
+                    <h1>Stranger's Things</h1>
+                    <img src={logoright} />
+                </section>
             </header>
             <Outlet context={[token, setToken]}/>
         </> 
