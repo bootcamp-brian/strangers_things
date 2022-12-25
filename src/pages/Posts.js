@@ -33,17 +33,15 @@ const Posts = () => {
 
     return <div className="page">
         <CreatePostForm posts={posts} setPosts={setPosts} token={token} username={username} />
-        {
-            token && <h2>Available Posts</h2>
-        }
+        <h2>Available Posts</h2>
         <SearchPosts token={token} searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         <section className="posts">
             {
-                token ? postsToDisplay.map(post => {
+                postsToDisplay.map(post => {
                     return <div key={post._id} className="post">
                         <PostContent post={post} posts={posts} setPosts={setPosts} token={token} username={username} />
                     </div>}
-                ) : <h2>You are not logged in</h2>
+                )
             }
         </section>
     </div>

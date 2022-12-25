@@ -16,9 +16,9 @@ export default function Root() {
             <header>
                 <nav>
                     <ul>
+                            <Link to="posts">Posts</Link>
                         {
                             token && <>
-                                <Link to="posts">Posts</Link>
                                 <Link to="profile">Profile</Link>
                                 <Link className ="lastNav" onClick={logout} to="logout">Logout</Link>
                             </>

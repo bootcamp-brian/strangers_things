@@ -107,6 +107,7 @@ const PostContent = ({ post, posts, setPosts, token, username }) => {
                     }}>Delete</button>
                 </>
                 :
+                token &&
                 <form className="sendMessage" onSubmit={event => {
                     event.preventDefault();
                     sendMessage({ token, postMessages, postid: post._id });
