@@ -32,8 +32,14 @@ const Posts = () => {
     }, [posts])
 
     return <div className="page">
+        {
+            token ? <h1>Welcome to Stranger's Things {username}</h1> : <h1>Welcome to Stranger's Things</h1>
+        }
+        {
+            !token && <h2>Please login or register to interact with posts</h2>
+        }
         <CreatePostForm posts={posts} setPosts={setPosts} token={token} username={username} />
-        <h2>Available Posts</h2>
+        <h2>Available Posts:</h2>
         <SearchPosts token={token} searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         <section className="posts">
             {

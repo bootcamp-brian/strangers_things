@@ -10,7 +10,7 @@ import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Logout from "./pages/Logout";
-import Home from "./pages/Home";
+// import Home from "./pages/Home";
 import PublicProfile from "./pages/PublicProfile";
 
 const router = createBrowserRouter([
@@ -45,7 +45,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/",
-            element: <Home />,
+            element: <Posts />,
           },
         ],
   },

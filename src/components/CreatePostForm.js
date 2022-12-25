@@ -10,7 +10,6 @@ const CreatePostForm = ({ posts, setPosts, token, username }) => {
 
     return (
         token && <>
-        <h1>Welcome {username}</h1>
         <h2>Create New Post</h2>
         <form className="createPost" onSubmit={event => {
             event.preventDefault();
