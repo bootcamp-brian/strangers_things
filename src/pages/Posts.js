@@ -13,7 +13,12 @@ const Posts = () => {
     const { username } = token ? jwt_decode(token) : '';
 
     function postMatches(post, text) {
-        if (post.title.includes(text) || post.description.includes(text) || post.price.includes(text)) {
+        const title = post.title.toLowerCase();
+        const description = post.description.toLowerCase();
+        const price = post.price.toLowerCase();
+        const search = text.toLowerCase();
+        
+        if (title.includes(search) || description.includes(search) || price.includes(search)) {
             return true;
         } else {
             return false;
